@@ -1,0 +1,36 @@
+page-home {
+  ion-content.secondary {
+    background-color: color($colors,secondary);
+  }
+  ion-card.primary {
+    ion-card-header {
+      padding: 0;
+      color: color($colors,light);
+      background: color($colors,primary);
+      ion-item {
+        color: color($colors,light);
+        background: color($colors,primary);
+      }
+    }
+    ion-item {
+      color: color($colors, secondary);
+      ion-icon {
+        // color: color($colors, primary);
+      }
+    }
+    .footer {
+      color: color($colors, dark);
+      background: color($colors, light);
+      min-height: 2.2rem;
+      // height: 24px;
+      button {
+        // color: color($colors, secondary);
+        // border-color: color($colors, secondary);
+        &[small] {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
