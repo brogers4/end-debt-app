@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the SignUpPage page.
@@ -23,7 +25,8 @@ export class SignUpPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public db: AngularFireDatabase
   ) {
 
   }
@@ -41,7 +44,21 @@ export class SignUpPage {
         }).then(
           () => {
             console.log("Successfully set user profile.");
-            this.navCtrl.goToRoot(null);
+            let uuid = userData.uid;
+            this.db.object('users/'+uuid).set({
+              displayName: this.displayName,
+              email: this.email,
+              created: Date.now()
+            }).then(
+              () => {
+                console.log("Successfully set user object.")
+                this.navCtrl.goToRoot(null);
+              },
+              error => {
+                console.log("Error setting user object:",error);
+              }
+            )
+
           },
           error => {
             console.log("Error creating user profile:",error);
